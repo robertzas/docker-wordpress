@@ -70,8 +70,6 @@ if [ ! -f "/home/site/wwwroot/wp-config.php" ]; then
     # Copy wp-content from Wordpress src to volume
 	mkdir -p /home/site/wwwroot
     cp -r /usr/src/wordpress/. /home/site/wwwroot
-    chown -R www-data:www-data /home/site/wwwroot
-	chmod -R 777 /home/site/wwwroot
 
     # Generate secrets
     curl -f https://api.wordpress.org/secret-key/1.1/salt/ >> /home/site/wwwroot/wp-secrets.php
@@ -81,5 +79,8 @@ if [ ! -f "/home/site/wwwroot/wp-config.php" ]; then
     sed -i "s/getenv('DATABASE_PASSWORD')/${DATABASE_PASSWORD}/g" /home/site/wwwroot/wp-config.php
     sed -i "s/getenv('DATABASE_HOST')/${DATABASE_HOST}/g" /home/site/wwwroot/wp-config.php
 fi
+
+chown -R www-data:www-data /home/site/wwwroot
+chmod -R 777 /home/site/wwwroot
 
 exec "$@"
