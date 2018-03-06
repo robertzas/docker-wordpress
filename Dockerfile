@@ -36,6 +36,7 @@ RUN set -ex \
     php7-mbstring \
     php7-gd \
     php7-memcached \
+    memcached \
     php7-opcache \
     nginx \
     mariadb mariadb-client \
