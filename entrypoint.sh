@@ -65,7 +65,7 @@ EOF
 fi
 
 # Check if volume is empty
-if [ ! -f /home/site/wwwroot/wp-config.php ]; then
+if [ ! -f "/home/site/wwwroot/wp-config.php" ]; then
     echo 'Setting up wp-content volume'
     # Copy wp-content from Wordpress src to volume
 	mkdir -p /home/site/wwwroot

@@ -2,11 +2,13 @@ FROM alpine:3.7
 
 ENV SSH_PASSWD "root:Docker!"
 
-RUN addgroup -g 82 -S www-data \
+RUN set -ex \
+    && addgroup -g 82 -S www-data \
     && adduser -u 82 -D -S -G www-data www-data
 
 # Install packages from stable repo's
-RUN apk --no-cache upgrade \
+RUN set -ex \
+    && apk --no-cache upgrade \
     && apk --no-cache add supervisor curl bash \
     # Setup SSH
     openssh \
@@ -16,7 +18,8 @@ COPY config/sshd_config /etc/ssh/
 
 
 # Install packages from testing repo's
-RUN apk --no-cache add \
+RUN set -ex \
+    && apk --no-cache add \
     php7 \
     php7-fpm \
     php7-mysqli \
@@ -43,10 +46,12 @@ RUN apk --no-cache add \
 ENV WORDPRESS_VERSION 4.9.4
 ENV WORDPRESS_SHA1 0e630bf940fd586b10e099cd9195b3e825fb194c
 
-RUN mkdir -p /usr/src
+RUN set -ex \
+    && mkdir -p /usr/src
 
 # Upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
-RUN curl -o wordpress.tar.gz -SL https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz \
+RUN set -ex \
+    && curl -o wordpress.tar.gz -SL https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz \
     && echo "$WORDPRESS_SHA1 *wordpress.tar.gz" | sha1sum -c - \
     && tar -xzf wordpress.tar.gz -C /usr/src/ \
     && rm wordpress.tar.gz \
@@ -55,7 +60,8 @@ RUN curl -o wordpress.tar.gz -SL https://wordpress.org/wordpress-${WORDPRESS_VER
 # Copy WP config
 COPY config/wp-secrets.php /usr/src/wordpress
 COPY config/wp-config.php /usr/src/wordpress
-RUN chown -R www-data:www-data /usr/src/wordpress \
+RUN set -ex \
+    && chown -R www-data:www-data /usr/src/wordpress \
     && chmod -R 777 /usr/src/wordpress
 
 # Copy other configs
@@ -66,10 +72,14 @@ COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY config/my.cnf /etc/mysql/my.cnf
 
 # Make logs dir
-RUN mkdir -p /home/LogFiles/
+RUN set -ex \
+    && mkdir -p /home/LogFiles/
 
-# Entrypoint to copy wp-content
+# Entrypoint
 COPY entrypoint.sh /entrypoint.sh
+RUN set -ex \
+    && chmod +x /entrypoint.sh
+
 ENTRYPOINT [ "/entrypoint.sh" ]
 
 EXPOSE 2222 80
