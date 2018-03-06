@@ -21,9 +21,13 @@ else
 	chown -R mysql:mysql /run/mysqld
 fi
 
-if [ -d /var/lib/mysql/mysql ]; then
+if [ -d $MARIADB_DATA_DIR ]; then
 	echo "[i] MySQL directory already present, skipping creation"
-	chown -R mysql:mysql /var/lib/mysql
+	cp -R /var/lib/mysql/. $MARIADB_DATA_DIR
+	rm -rf /var/lib/mysql
+	ln -s $MARIADB_DATA_DIR /var/lib/mysql
+	chown -R mysql:mysql $MARIADB_DATA_DIR
+
 else
 	echo "[i] MySQL data directory not found, creating initial DBs"
 
@@ -61,19 +65,21 @@ EOF
 fi
 
 # Check if volume is empty
-if [ ! "$(ls -A "/var/www/wp-content" 2>/dev/null)" ]; then
+if [ ! "$(ls -A "/home/site/wwwroot/wp-content" 2>/dev/null)" ]; then
     echo 'Setting up wp-content volume'
     # Copy wp-content from Wordpress src to volume
-    cp -r /usr/src/wordpress/wp-content /var/www/
-    chown -R www-data:www-data /var/www
+	mkdir -p /home/site/wwwroot
+    cp -r /usr/src/wordpress/. /home/site/wwwroot
+    chown -R www-data:www-data /home/site/wwwroot
+	chmod -R 777 /home/site/wwwroot
 
     # Generate secrets
-    curl -f https://api.wordpress.org/secret-key/1.1/salt/ >> /usr/src/wordpress/wp-secrets.php
+    curl -f https://api.wordpress.org/secret-key/1.1/salt/ >> /home/site/wwwroot/wp-secrets.php
 
-    sed -i "s/getenv('DATABASE_NAME')/${DATABASE_NAME}/g" /usr/src/wordpress/wp-config.php
-    sed -i "s/getenv('DATABASE_USERNAME')/${DATABASE_USERNAME}/g" /usr/src/wordpress/wp-config.php
-    sed -i "s/getenv('DATABASE_PASSWORD')/${DATABASE_PASSWORD}/g" /usr/src/wordpress/wp-config.php
-    sed -i "s/getenv('DATABASE_HOST')/${DATABASE_HOST}/g" /usr/src/wordpress/wp-config.php
+    sed -i "s/getenv('DATABASE_NAME')/${DATABASE_NAME}/g" /home/site/wwwroot/wp-config.php
+    sed -i "s/getenv('DATABASE_USERNAME')/${DATABASE_USERNAME}/g" /home/site/wwwroot/wp-config.php
+    sed -i "s/getenv('DATABASE_PASSWORD')/${DATABASE_PASSWORD}/g" /home/site/wwwroot/wp-config.php
+    sed -i "s/getenv('DATABASE_HOST')/${DATABASE_HOST}/g" /home/site/wwwroot/wp-config.php
 fi
 
 exec "$@"

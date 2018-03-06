@@ -39,8 +39,6 @@ RUN apk --no-cache add \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/
 
-RUN chown -R www-data:www-data /var/www
-
 # Wordpress
 ENV WORDPRESS_VERSION 4.9.4
 ENV WORDPRESS_SHA1 0e630bf940fd586b10e099cd9195b3e825fb194c
