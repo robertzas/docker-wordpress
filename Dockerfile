@@ -3,17 +3,19 @@ FROM alpine:3.7
 ENV SSH_PASSWD "root:Docker!"
 
 RUN set -ex \
-    && addgroup -g 82 -S www-data \
-    && adduser -u 82 -D -S -G www-data www-data
-
-RUN set -ex \
+    && addgroup -S www-data \
+    && adduser -D -H -S -G www-data www-data\
+    \
     && addgroup -S memcached \
-    && adduser -D -S -G memcached memcached
+    && adduser -D -H -S -G memcached memcached
 
 # Install packages from stable repo's
 RUN set -ex \
     && apk --no-cache upgrade \
-    && apk --no-cache add supervisor curl bash \
+    && apk --no-cache add \
+    supervisor \
+    curl \
+    bash \
     # Setup SSH
     openssh \
     && /usr/bin/ssh-keygen -A \

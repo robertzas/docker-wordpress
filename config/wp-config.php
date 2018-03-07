@@ -43,6 +43,11 @@ define('DB_COLLATE', '');
 /**  Change filesystem modification to direct */
 define('FS_METHOD', 'direct');
 
+ini_set('log_errors', 'On');
+ini_set('error_log', '/home/LogFiles/wordpress-php-errors.log');
+
+define('WP_DEBUG', false);
+
 /**#@-*/
 
 /**
@@ -65,7 +70,6 @@ $table_prefix  = 'wp_';
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
-define('WP_DEBUG', false);
 
 /* That's all, stop editing! Happy blogging. */
 
