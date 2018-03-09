@@ -45,7 +45,9 @@ RUN set -ex \
     memcached \
     php7-opcache \
     nginx \
-    mariadb mariadb-client \
+    nginx-mod-http-cache-purge \
+    mariadb \
+    mariadb-client \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/
 
