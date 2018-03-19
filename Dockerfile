@@ -37,6 +37,7 @@ RUN set -ex \
     php7-phar \
     php7-intl \
     php7-dom \
+    php7-simplexml \
     php7-xmlreader \
     php7-ctype \
     php7-mbstring \
