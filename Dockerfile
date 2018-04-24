@@ -49,9 +49,10 @@ RUN set -ex \
     nginx-mod-http-cache-purge \
     mariadb=10.1.32-r0 \
     mariadb-client=10.1.32-r0 \
+    mariadb-common=10.1.32-r0 \
     # mariadb \
     # mariadb-client \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
+        --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/
 
 # Wordpress
@@ -77,11 +78,11 @@ RUN set -ex \
     && chmod -R 777 /usr/src/wordpress
 
 # Copy other configs
-COPY config/nginx.conf /usr/src/wordpress/nginx.conf
-COPY config/fpm-pool.conf /etc/php7/php-fpm.d/zzz_custom.conf
-COPY config/php.ini /etc/php7/conf.d/zzz_custom.ini
-COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY config/my.cnf /etc/mysql/my.cnf
+COPY config/nginx.conf          /usr/src/wordpress/nginx.conf
+COPY config/fpm-pool.conf       /etc/php7/php-fpm.d/zzz_custom.conf
+COPY config/php.ini             /etc/php7/conf.d/zzz_custom.ini
+COPY config/supervisord.conf    /etc/supervisor/conf.d/supervisord.conf
+COPY config/my.cnf              /etc/mysql/my.cnf
 
 # Make logs dir
 RUN set -ex \
