@@ -52,8 +52,9 @@ RUN set -ex \
     mariadb-common=10.1.32-r0 \
     # mariadb \
     # mariadb-client \
-        --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/
 
 # Wordpress
 ENV WORDPRESS_VERSION 4.9.4
