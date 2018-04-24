@@ -51,7 +51,7 @@ RUN set -ex \
     mariadb-client=10.1.32-r0 \
     # mariadb \
     # mariadb-client \
-   --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/
 
 # Wordpress
