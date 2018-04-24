@@ -74,10 +74,10 @@ if [ ! -f "/home/site/wwwroot/wp-config.php" ]; then
     # Generate secrets
     curl -f https://api.wordpress.org/secret-key/1.1/salt/ >> /home/site/wwwroot/wp-secrets.php
 
-    sed -i "s/getenv('DATABASE_NAME')/${DATABASE_NAME}/g" /home/site/wwwroot/wp-config.php
-    sed -i "s/getenv('DATABASE_USERNAME')/${DATABASE_USERNAME}/g" /home/site/wwwroot/wp-config.php
-    sed -i "s/getenv('DATABASE_PASSWORD')/${DATABASE_PASSWORD}/g" /home/site/wwwroot/wp-config.php
-    sed -i "s/getenv('DATABASE_HOST')/${DATABASE_HOST}/g" /home/site/wwwroot/wp-config.php
+    sed -i "s/getenv('DATABASE_NAME')/'${DATABASE_NAME}'/g" /home/site/wwwroot/wp-config.php
+    sed -i "s/getenv('DATABASE_USERNAME')/'${DATABASE_USERNAME}'/g" /home/site/wwwroot/wp-config.php
+    sed -i "s/getenv('DATABASE_PASSWORD')/'${DATABASE_PASSWORD}'/g" /home/site/wwwroot/wp-config.php
+    sed -i "s/getenv('DATABASE_HOST')/'${DATABASE_HOST}'/g" /home/site/wwwroot/wp-config.php
 fi
 
 chown -R www-data:www-data /home/site/wwwroot
