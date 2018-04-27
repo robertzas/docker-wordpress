@@ -23,15 +23,15 @@ fi
 
 if [ -d $MARIADB_DATA_DIR ]; then
 	echo "[i] MySQL directory already present, skipping creation"
-	# cp -R /var/lib/mysql/. $MARIADB_DATA_DIR
-	# rm -rf /var/lib/mysql
-	# ln -s $MARIADB_DATA_DIR /var/lib/mysql
+	cp -R /var/lib/mysql/. $MARIADB_DATA_DIR
+	rm -rf /var/lib/mysql
+	ln -s $MARIADB_DATA_DIR /var/lib/mysql
 	chown -R mysql:mysql $MARIADB_DATA_DIR
 
 else
 	echo "[i] MySQL data directory not found, creating initial DBs"
 
-	# chown -R mysql:mysql /var/lib/mysql
+	chown -R mysql:mysql /var/lib/mysql
 
 	mysql_install_db --user=mysql --datadir=$MARIADB_DATA_DIR > /dev/null
 
