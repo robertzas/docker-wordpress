@@ -1,7 +1,7 @@
 FROM alpine:3.7
 
 ENV SSH_PASSWD "root:Docker!"
-ENV PHP_VERSION "7.2.4-r2"
+ENV PHP_VERSION "7.2"
 ENV NGINX_VERSION "1.12.2-r6"
 ENV MARIADB_VERSION "10.1.32-r0"
 
@@ -29,35 +29,35 @@ COPY config/sshd_config /etc/ssh/
 # Install packages from testing repo's
 RUN set -ex \
     && apk --no-cache add \
-    php7=$PHP_VERSION \
-    php7-fpm=$PHP_VERSION \
-    php7-mysqli=$PHP_VERSION \
-    php7-json=$PHP_VERSION \
-    php7-openssl=$PHP_VERSION \
-    php7-curl=$PHP_VERSION \
-    php7-zip=$PHP_VERSION \
-    php7-xml=$PHP_VERSION \
-    php7-phar=$PHP_VERSION \
-    php7-intl=$PHP_VERSION \
-    php7-dom=$PHP_VERSION \
-    php7-simplexml=$PHP_VERSION \
-    php7-xmlreader=$PHP_VERSION \
-    php7-ctype=$PHP_VERSION \
-    php7-mbstring=$PHP_VERSION \
-    php7-gd=$PHP_VERSION \
+    php7 \
+    php7-fpm \
+    php7-mysqli \
+    php7-json \
+    php7-openssl \
+    php7-curl \
+    php7-zip \
+    php7-xml \
+    php7-phar \
+    php7-intl \
+    php7-dom \
+    php7-simplexml \
+    php7-xmlreader \
+    php7-ctype \
+    php7-mbstring \
+    php7-gd \
     php7-memcached \
     memcached \
-    php7-opcache=$PHP_VERSION \
-    nginx=$NGINX_VERSION \
-    nginx-mod-http-cache-purge=$NGINX_VERSION \
-    mariadb=$MARIADB_VERSION \
-    mariadb-client=$MARIADB_VERSION \
-    mariadb-common=$MARIADB_VERSION \
+    php7-opcache \
+    nginx \
+    nginx-mod-http-cache-purge \
+    mariadb \
+    mariadb-client \
+    mariadb-common
     # mariadb \
     # mariadb-client \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/
+    # --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
+    # --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ \
+    # --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/
 
 # Wordpress
 ENV WORDPRESS_VERSION 4.9.4
