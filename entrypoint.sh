@@ -23,9 +23,9 @@ fi
 
 if [ -d $MARIADB_DATA_DIR ]; then
 	echo "[i] MySQL directory already present, skipping creation"
-	cp -R /var/lib/mysql/. $MARIADB_DATA_DIR
-	rm -rf /var/lib/mysql
-	ln -s $MARIADB_DATA_DIR /var/lib/mysql
+	# cp -R /var/lib/mysql/. $MARIADB_DATA_DIR
+	# rm -rf /var/lib/mysql
+	# ln -s $MARIADB_DATA_DIR /var/lib/mysql
 	chown -R mysql:mysql $MARIADB_DATA_DIR
 
 else
