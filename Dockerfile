@@ -96,6 +96,6 @@ RUN set -ex \
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 
-EXPOSE 2222 80
+EXPOSE 2222 3306 80
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
