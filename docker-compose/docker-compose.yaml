@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  wordpress:
+    build: ../.
+    environment:
+      DATABASE_USERNAME: wordpress
+      DATABASE_PASSWORD: db_password
+      DATABASE_NAME: wordpress
+      DATABASE_ROOT_PASSWORD: root_password
+    volumes: 
+      - ./data:/home/data
+      - ./wordpress:/home/site/wwwroot
+      - ./logs:/home/LogFiles
+    ports:
+      - "13306:3306"
+      - "2222:2222"
+      - "8080:80"

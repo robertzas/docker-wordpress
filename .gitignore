@@ -1,1 +1,4 @@
 .idea
+docker-compose/data/*
+docker-compose/logs/*
+docker-compose/wordpress/*
