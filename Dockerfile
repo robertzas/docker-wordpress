@@ -1,9 +1,6 @@
 FROM alpine:3.7
 
 ENV SSH_PASSWD "root:Docker!"
-ENV PHP_VERSION "7.2"
-ENV NGINX_VERSION "1.12.2-r6"
-ENV MARIADB_VERSION "10.1.32-r0"
 
 RUN set -ex \
     && addgroup -S www-data \
